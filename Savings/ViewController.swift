@@ -14,6 +14,19 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
     }
     @IBAction func add(_ sender: Any) {
+        
+        
+        // pop up alrt
+        let alert = UIAlertController(title: "New Item", message: "Add Savings Item", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField { (textfield) in
+            textfield.placeholder = "name"
+        }
+        alert.addTextField(configurationHandler: ({ (textfield) in
+            textfield.placeholder = "amount"
+        }))
+        alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { action in
+            <#code#>
+        }))
         let transaction = Transaction(name: "Tesla", amount: 200000)
         transactions.append(transaction)
         tableView.reloadData()
