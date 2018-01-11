@@ -25,11 +25,18 @@ class ViewController: UITableViewController {
             textfield.placeholder = "amount"
         }))
         alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { action in
-            <#code#>
+            let name = alert.textFields![0].text
+            let amountString = alert.textFields![1].text
+            let transaction = Transaction(name: name!, amount: Int(amountString!)!)
+            self.transactions.append(transaction)
+            self.tableView.reloadData()
+
         }))
-        let transaction = Transaction(name: "Tesla", amount: 200000)
-        transactions.append(transaction)
-        tableView.reloadData()
+        alert.addAction(UIAlertAction(title: "cancel", style: UIAlertActionStyle.cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+        
+        
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactions.count
@@ -38,6 +45,7 @@ class ViewController: UITableViewController {
         -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = transactions[indexPath.row].name
+            cell.detailTextLabel?.text = "\(transactions[indexPath.row].amount)"
         return cell
     }
 }
